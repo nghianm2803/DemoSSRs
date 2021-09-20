@@ -1,11 +1,15 @@
 import React from "react";
 import {
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  Platform,
+  Keyboard,
 } from "react-native";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
@@ -15,42 +19,48 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
-      <View style={styles.content}>
-        <View style={styles.textWrapper}>
-          <Text style={styles.hiText}>Car Rescue & Repair</Text>
-          <Text style={styles.userText}>Login</Text>
-          <Text style={styles.userText}>Doo</Text>
-        </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.content}>
+            <View style={styles.textWrapper}>
+              <Text style={styles.hiText}>Car Rescue & Repair</Text>
+              <Text style={styles.userText}>Login</Text>
+              <Text style={styles.userText}>Doo</Text>
+            </View>
 
-        <View style={styles.form}>
-          <Foundation
-            name="lock"
-            size={24}
-            color="black"
-            style={styles.iconLock}
-          />
-          <TextInput
-            secureTextEntry={true}
-            keyboardType="numeric"
-            style={styles.inputPassword}
-            autoFocus={true}
-            placeholder="Password"
-            placeholderTextColor="#929292"
-          />
-          <TouchableOpacity style={styles.buttonLogin}>
-            <Text style={styles.buttonLoginText}>Login</Text>
-          </TouchableOpacity>
-        </View>
+            <View style={styles.form}>
+              <Foundation
+                name="lock"
+                size={24}
+                color="black"
+                style={styles.iconLock}
+              />
+              <TextInput
+                secureTextEntry={true}
+                keyboardType="numeric"
+                style={styles.inputPassword}
+                placeholder="Password"
+                placeholderTextColor="#929292"
+              />
+              <TouchableOpacity style={styles.buttonLogin}>
+                <Text style={styles.buttonLoginText}>Login</Text>
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.action}>
-          <TouchableOpacity>
-            <Text style={styles.buttonActionText}>Forgot password</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.buttonLogoutText}>Logout</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+            <View style={styles.action}>
+              <TouchableOpacity>
+                <Text style={styles.buttonActionText}>Forgot password</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.buttonLogoutText}>Logout</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -67,6 +77,8 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
   },
   content: {
+    justifyContent: "flex-end",
+    marginTop: 70,
     paddingHorizontal: 30,
   },
   textWrapper: {
